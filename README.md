@@ -1,4 +1,4 @@
-# get-smart-lisp
+# get-smart
 
 A Common Lisp library for using the common AGI/LLM APIs. The basic
 functionality works, and I'm slowly adding features as I personally
@@ -18,6 +18,14 @@ CL-USER> (ql:quickload :get-smart)
 CL-USER> (in-package :get-smart)
 GET-SMART>
 ```
+
+It's important to know that the api-key and the provider are both
+stored in non-exported variables (*api-key* and *provider*). The user
+of the library does not need to supply either of these once initially
+set. Of course, this implies that you can only use one provider at a
+time and not interleave calls to two different providers. I did this
+because it fit my use case and simplifies both the library and the
+code based on the library.
 
 To use the library, start by loading the credentials and setting the
 provider. Here's an example to load the DeepSeek API key and set the
