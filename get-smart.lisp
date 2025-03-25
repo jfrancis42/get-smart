@@ -5,13 +5,8 @@
 (defparameter *api-key* nil)
 (defparameter *provider* nil)
 
-;; (load-api-key :grok "~/crypt/grok_api_key.txt")
-;; (load-api-key :deepseek "~/crypt/deepseek_api_key.txt")
-
 (defparameter *assistant* "You are a helpful assistant.")
 (defparameter *network-engineer* "You are an expert in IP networking and server operating systems.")
-
-; error codes: https://api-docs.deepseek.com/quick_start/error_codes
 
 ;; -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
 
@@ -252,8 +247,6 @@ selected *provider*."
 			:top-logprobs top-logprobs
 			:model :reason
 			:temperature temp)))))
-
-;; (jeff:cdr-assoc :message (first (jeff:cdr-assoc :choices *answer*)))
 
 ;;; Local Variables:
 ;;; mode: Lisp
