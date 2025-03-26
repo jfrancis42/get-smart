@@ -1,16 +1,17 @@
 # get-smart
 
-A Common Lisp library for using the common AGI/LLM APIs. The basic
+A Common Lisp library for using common AGI/LLM APIs. The basic
 functionality works, and I'm slowly adding features as I personally
 need them (not to complete the code to meet the API specs). Patches
 welcome.
 
-So far, I've added Grok and DeepSeek functionality, because those are
-the two that I use. It should be trivial to add ChatGPT, as the APIs
+So far, I've added and tested Grok and DeepSeek functionality, because
+those are the two that I use (though not all Grok-specific features
+have been added yet). It should be trivial to add ChatGPT, as the APIs
 are all 80-90% the same. I'll do that at some point, but for now, I
 don't see the point in paying the fees for functionality I don't need.
 
-First, load the library and switch packages:
+First, load the library and change packages:
 
 ```
 CL-USER> (ql:quickload :get-smart)
@@ -21,17 +22,20 @@ GET-SMART>
 
 It's important to know that the api-key and the provider are both
 stored in non-exported variables (*api-key* and *provider*). The user
-of the library does not need to supply either of these once initially
-set. Of course, this implies that you can only use one provider at a
-time and not interleave calls to two different providers. I did this
-because it fit my use case and simplifies both the library and the
-code based on the library.
+of the library does not need to directly use either of these once
+initially set. Of course, this implies that you can only use one
+provider at a time with this library and not interleave calls to two
+different providers. I did this because it fit my use case and
+simplifies both the library and the code based on the library. Yes,
+global variables are bad. But it fits my use case for the moment,
+regardless. And at least they're only global to the package, not all
+of CL-USER.
 
 To use the library, start by loading the credentials and setting the
 provider. Here's an example to load the DeepSeek API key and set the
 provider to DeepSeek (this assumes the API key is stored as the only
 line in the specified file - yes there are better ways of loading and
-storing passwords):
+storing passwords, again, tihs fits my simplistic use case.):
 
 ```
 GET-SMART> (load-api-key :deepseek "~/crypt/deepseek_api_key.txt")
@@ -43,13 +47,14 @@ If you'd like to try the library with a provider that has not yet been
 added to the library, the global get-smart::*api-key* can be set to
 the API key value and get-smart::*provider* can be set to the base URL
 of the API endpoint (probably something like
-"https://api.foo.com/v1/"). If the provider's API is similar to Grok
-or DeepSeek's (most are), it might work. If it does, or if make
-changes to make it work, please pass that back, and I'll add it.
+"https://api.badassai.com/v1/"). If the provider's API is similar to
+Grok or DeepSeek's (most are), it might work. If it does, or if you
+make changes to make it work (or work better), please pass those
+changes back, and I'll add it to the official code.
 
-Once these two values are set, you can now do things like get a
-current balance (this works with DeepSeek, but Grok doesn't support
-this in their API yet):
+Once these two values are set, you can do things like get a current
+balance (this works with DeepSeek, but Grok doesn't support this in
+their API yet):
 
 ```
 GET-SMART> (get-user-balance)
@@ -92,7 +97,7 @@ GET-SMART>
 Read the API docs and the source. You can specify temperature, model,
 etc.
 
-As I said, this is just enough to get by for a work project, not a
+As I said, this is just enough to get by for a specific project, not a
 full implementation. For example, I didn't bother with the API options
 for streaming, tools, and a few other things. I'll add them as I need
 them (or as users contribute).
