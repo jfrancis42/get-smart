@@ -39,8 +39,17 @@ GET-SMART> (load-api-key :deepseek "~/crypt/deepseek_api_key.txt")
 GET-SMART>
 ```
 
-Now I can do things like get my current balance (this works with
-DeepSeek, but Grok doesn't support this in their API yet):
+If you'd like to try the library with a provider that has not yet been
+added to the library, the global get-smart::*api-key* can be set to
+the API key value and get-smart::*provider* can be set to the base URL
+of the API endpoint (probably something like
+"https://api.foo.com/v1/"). If the provider's API is similar to Grok
+or DeepSeek's (most are), it might work. If it does, or if make
+changes to make it work, please pass that back, and I'll add it.
+
+Once these two values are set, you can now do things like get a
+current balance (this works with DeepSeek, but Grok doesn't support
+this in their API yet):
 
 ```
 GET-SMART> (get-user-balance)

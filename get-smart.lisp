@@ -43,6 +43,7 @@
 (defun provider-uri ()
   "Return the appropriate base URI for the selected *provider*."
   (cond
+    ((typep *provider* 'string) *provider*)
     ((equal :grok *provider*) "https://api.x.ai/v1/")
     ((equal :deepseek *provider*) "https://api.deepseek.com/v1/")
     (t nil)))
@@ -51,6 +52,7 @@
   "Return the appropriate model name for the desired mode for the
 selected *provider*."
   (cond
+    ((typep model 'string) model)
     ((equal :grok *provider*)
      (cond ((equal :chat model) "grok-2-latest")
 	   ((equal :reason model) "grok-2-latest")
